@@ -1,8 +1,8 @@
 # Веб-приложение на Django и Vue.js
 
 Этот проект представляет собой полнофункциональное веб-приложение, состоящее из:
-- Бэкенд: Django/Django REST Framework
-- Фронтенд: Vue.js с Tailwind CSS и Pinia
+- Бэкенд: Python - Django/Django REST Framework, SQLite
+- Фронтенд: TypeScript - Vue.js с Tailwind CSS и Pinia
 
 ## Системные требования
 
@@ -29,54 +29,6 @@
 2. Нажмите скачать zip
 3. Распакуйте проект в удобное место
 
-### 3. Настройка бэкенда (Django)
-
-1. Перейдите в директорию сервера:
-```bash
-cd server
-```
-
-2. Создайте и активируйте виртуальное окружение:
-
-Windows:
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-```
-
-Linux/MacOS:
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-3. Установите зависимости:
-```bash
-pip install -r requirements.txt
-```
-
-4. Выполните миграции базы данных:
-```bash
-python manage.py migrate
-```
-
-5. Создайте суперпользователя (admin):
-```bash
-python manage.py createsuperuser
-```
-
-### 4. Настройка фронтенда (Vue.js)
-
-1. Перейдите в директорию клиента:
-```bash
-cd ../client
-```
-
-2. Установите зависимости:
-```bash
-npm install
-```
-
 ## Запуск проекта
 
 ### Автоматический запуск
@@ -85,11 +37,6 @@ npm install
 
 #### Windows
 Просто запустите файл `start_project.bat`, дважды кликнув по нему в проводнике.
-
-Или через командную строку:
-```bash
-start_project.bat
-```
 
 #### Linux/MacOS
 Сделайте скрипт исполняемым и запустите его:
@@ -100,49 +47,11 @@ chmod +x start_project.sh
 
 Скрипты запустят и бэкенд, и фронтенд одновременно.
 
-### Ручной запуск
-
-#### Запуск бэкенда
-
-1. Перейдите в директорию сервера (если вы еще не там):
-```bash
-cd server
-```
-
-2. Активируйте виртуальное окружение (если оно еще не активировано):
-
-Windows:
-```bash
-.venv\Scripts\activate
-```
-
-Linux/MacOS:
-```bash
-source .venv/bin/activate
-```
-
-3. Запустите сервер разработки:
-```bash
-python manage.py runserver
-```
-
 Бэкенд будет доступен по адресу: http://localhost:8000/
 
 Панель администратора Django: http://localhost:8000/admin/
 
-#### Запуск фронтенда
-
-1. Перейдите в директорию клиента (если вы еще не там):
-```bash
-cd ../client
-```
-
-2. Запустите сервер разработки:
-```bash
-npm run dev
-```
-
-Фронтенд будет доступен по адресу: http://localhost:5173/
+Фронтенд будет доступен по адресу: http://localhost:3000/
 
 ## Структура проекта
 
@@ -160,20 +69,3 @@ npm run dev
 - `client/src/api/`: API клиент для взаимодействия с бэкендом
 - `client/src/stores/`: Хранилища состояния Pinia
 - `client/public/`: Статические файлы
-
-## Сборка для продакшена
-
-### Сборка фронтенда
-```bash
-cd client
-npm run build
-```
-
-Сборка будет создана в директории `client/dist/`.
-
-### Настройка бэкенда для продакшена
-```bash
-cd server
-python manage.py collectstatic
-```
-
