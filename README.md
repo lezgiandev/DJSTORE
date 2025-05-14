@@ -50,6 +50,8 @@ chmod +x start_project.sh
 Бэкенд будет доступен по адресу: http://localhost:8000/
 
 Панель администратора Django: http://localhost:8000/admin/
+Логин: admin
+Пароль: admin
 
 Фронтенд будет доступен по адресу: http://localhost:3000/
 
