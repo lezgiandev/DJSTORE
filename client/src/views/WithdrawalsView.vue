@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <NavBar />
 
     <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
@@ -9,13 +9,13 @@
         </h1>
 
         <!-- Блок баланса -->
-        <div v-if="authStore.state.profile" class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl mb-8">
+        <div v-if="authStore.state.profile" class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl mb-8">
           <div class="flex items-center gap-4 md:gap-6">
             <div class="p-3 bg-gradient-to-br from-green-400/10 to-emerald-400/10 rounded-xl border border-green-400/20">
               <CurrencyDollarIcon class="w-7 h-7 text-green-400" />
             </div>
             <div>
-              <p class="text-sm md:text-base text-gray-400">Доступно к выводу</p>
+              <p class="text-sm md:text-base text-light-text-secondary dark:text-gray-400">Доступно к выводу</p>
               <p class="text-2xl md:text-3xl font-bold text-green-400">
                 {{ authStore.state.profile.balance }} ₽
               </p>
@@ -24,8 +24,8 @@
         </div>
 
         <!-- Форма вывода -->
-        <div class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl mb-8">
-          <h2 class="text-xl md:text-2xl font-bold text-gray-200 mb-6 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 w-max px-4 py-1 rounded-full">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl mb-8">
+          <h2 class="text-xl md:text-2xl font-bold text-light-text dark:text-gray-200 mb-6 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 w-max px-4 py-1 rounded-full">
             Новый вывод
           </h2>
 
@@ -35,68 +35,68 @@
 
           <form @submit.prevent="handleWithdrawal" class="space-y-6">
             <div>
-              <label class="block text-gray-400 mb-2">Сумма вывода</label>
+              <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Сумма вывода</label>
               <input
                   type="number"
                   v-model.number="formData.amount"
                   min="1"
                   :max="authStore.state.profile?.balance || 0"
                   required
-                  class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                  class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                   placeholder="Введите сумму в рублях"
               />
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label class="block text-gray-400 mb-2">Номер карты</label>
+                <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Номер карты</label>
                 <input
                     type="text"
                     v-model="formData.card_number"
                     pattern="[0-9]{16}"
                     maxlength="16"
                     required
-                    class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                    class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                     placeholder="1234 5678 9012 3456"
                 />
               </div>
 
               <div class="grid grid-cols-3 gap-4">
                 <div>
-                  <label class="block text-gray-400 mb-2">Месяц</label>
+                  <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Месяц</label>
                   <input
                       type="text"
                       v-model="formData.card_expiry_month"
                       pattern="[0-9]{2}"
                       maxlength="2"
                       required
-                      class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                      class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                       placeholder="MM"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-gray-400 mb-2">Год</label>
+                  <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Год</label>
                   <input
                       type="text"
                       v-model="formData.card_expiry_year"
                       pattern="[0-9]{4}"
                       maxlength="4"
                       required
-                      class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                      class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                       placeholder="YYYY"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-gray-400 mb-2">CVC</label>
+                  <label class="block text-light-text-secondary dark:text-gray-400 mb-2">CVC</label>
                   <input
                       type="text"
                       v-model="formData.card_csc"
                       pattern="[0-9]{3}"
                       maxlength="3"
                       required
-                      class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                      class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                       placeholder="123"
                   />
                 </div>
@@ -118,19 +118,19 @@
         </div>
 
         <!-- История выводов -->
-        <div class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl">
-          <h2 class="text-xl md:text-2xl font-bold text-gray-200 mb-6 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 w-max px-4 py-1 rounded-full">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl">
+          <h2 class="text-xl md:text-2xl font-bold text-light-text dark:text-gray-200 mb-6 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 w-max px-4 py-1 rounded-full">
             История операций
           </h2>
 
           <div v-if="financeStore.loading && financeStore.withdrawals.length === 0" class="text-center p-6">
-            <div class="inline-flex items-center gap-3 text-gray-400">
+            <div class="inline-flex items-center gap-3 text-light-text-secondary dark:text-gray-400">
               <ArrowPathIcon class="w-6 h-6 animate-spin-once" />
               <span>Загрузка истории...</span>
             </div>
           </div>
 
-          <div v-else-if="financeStore.withdrawals.length === 0" class="text-center p-6 text-gray-400">
+          <div v-else-if="financeStore.withdrawals.length === 0" class="text-center p-6 text-light-text-secondary dark:text-gray-400">
             Нет операций по выводу средств
           </div>
 
@@ -138,21 +138,21 @@
             <div
                 v-for="withdrawal in financeStore.withdrawals"
                 :key="withdrawal.id"
-                class="bg-gray-900/20 p-4 rounded-xl border border-gray-700/30 hover:border-purple-400/30 transition-all group"
+                class="bg-light-bg dark:bg-gray-900/20 p-4 rounded-xl border border-light-border dark:border-gray-700/30 hover:border-purple-400/30 transition-all group"
             >
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                 <div class="space-y-1">
-                  <p class="text-xs text-gray-400">Дата</p>
-                  <p class="text-sm text-gray-300">{{ formatDate(withdrawal.created_at) }}</p>
+                  <p class="text-xs text-light-text-secondary dark:text-gray-400">Дата</p>
+                  <p class="text-sm text-light-text dark:text-gray-300">{{ formatDate(withdrawal.created_at) }}</p>
                 </div>
 
                 <div class="space-y-1">
-                  <p class="text-xs text-gray-400">Сумма</p>
-                  <p class="text-base font-bold text-gray-100">{{ withdrawal.amount }} ₽</p>
+                  <p class="text-xs text-light-text-secondary dark:text-gray-400">Сумма</p>
+                  <p class="text-base font-bold text-light-text dark:text-gray-100">{{ withdrawal.amount }} ₽</p>
                 </div>
 
                 <div class="space-y-1">
-                  <p class="text-xs mb-2 text-gray-400">Статус</p>
+                  <p class="text-xs mb-2 text-light-text-secondary dark:text-gray-400">Статус</p>
                   <span :class="statusColor(withdrawal.status)" class="px-3 py-1.5 rounded-full text-sm font-medium">
                     {{ getWithdrawalStatusText(withdrawal.status) }}
                   </span>

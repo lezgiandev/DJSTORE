@@ -1,13 +1,22 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
       <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-10 bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
-          Заказ трека
-        </h1>
+        <div class="flex justify-between items-center mb-6 md:mb-10">
+          <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
+            Заказ трека
+          </h1>
+          <button
+            @click="toggleTheme"
+            class="p-2 rounded-xl bg-light-bg-secondary dark:bg-gray-800/40 border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 hover:bg-light-bg dark:hover:bg-gray-700/40 transition-all"
+          >
+            <SunIcon v-if="isDark" class="w-6 h-6" />
+            <MoonIcon v-else class="w-6 h-6" />
+          </button>
+        </div>
 
-        <div v-if="loading" class="text-center p-8 bg-gray-800/40 rounded-2xl border border-gray-700/30">
-          <div class="inline-flex items-center gap-3 text-gray-400">
+        <div v-if="loading" class="text-center p-8 bg-light-bg-secondary dark:bg-gray-800/40 rounded-2xl border border-light-border dark:border-gray-700/30">
+          <div class="inline-flex items-center gap-3 text-light-text-secondary dark:text-gray-400">
             <ArrowPathIcon class="w-6 h-6 animate-spin-once" />
             <span>Загрузка треков...</span>
           </div>
@@ -17,36 +26,36 @@
           {{ error }}
         </div>
 
-        <div v-else-if="tracks.length === 0" class="p-8 bg-gray-800/40 rounded-2xl border border-gray-700/30 text-gray-400 text-center">
+        <div v-else-if="tracks.length === 0" class="p-8 bg-light-bg-secondary dark:bg-gray-800/40 rounded-2xl border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 text-center">
           В этом заведении нет доступных треков
         </div>
 
         <div v-else class="space-y-8">
           <!-- Фильтры -->
-          <div class="bg-gray-800/40 backdrop-blur-lg p-6 rounded-2xl border border-gray-700/30 shadow-xl relative z-10">
+          <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl relative z-10">
             <div class="grid md:grid-cols-2 gap-4">
               <div class="relative">
-                <MagnifyingGlassIcon class="w-5 h-5 absolute left-3 top-3.5 text-gray-400 z-10" />
+                <MagnifyingGlassIcon class="w-5 h-5 absolute left-3 top-3.5 text-light-text-secondary dark:text-gray-400 z-10" />
                 <input
                     id="search"
                     type="text"
                     v-model="searchQuery"
                     @input="filterTracks"
                     placeholder="Поиск по названию или исполнителю"
-                    class="w-full pl-10 pr-4 py-2.5 text-white bg-gray-900/20 border border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
+                    class="w-full pl-10 pr-4 py-2.5 text-light-text dark:text-white bg-light-bg dark:bg-gray-900/20 border border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
                 />
               </div>
 
               <div class="relative">
-                <ListBulletIcon class="w-5 h-5 absolute left-3 top-3.5 text-gray-400 z-10" />
+                <ListBulletIcon class="w-5 h-5 absolute left-3 top-3.5 text-light-text-secondary dark:text-gray-400 z-10" />
                 <div class="relative z-[999]">
                   <Listbox v-model="selectedGenre" @update:modelValue="filterTracks">
-                    <ListboxButton class="w-full pl-10 pr-4 py-2.5 text-left text-white bg-gray-900/20 border border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 appearance-none transition-all">
+                    <ListboxButton class="w-full pl-10 pr-4 py-2.5 text-left text-light-text dark:text-white bg-light-bg dark:bg-gray-900/20 border border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 appearance-none transition-all">
                       <span class="block truncate">
                         {{ selectedGenre ? genres.find(g => g.id === selectedGenre)?.name : 'Все жанры' }}
                       </span>
                       <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <ChevronUpDownIcon class="h-5 w-5 text-light-text-secondary dark:text-gray-400" aria-hidden="true" />
                       </span>
                     </ListboxButton>
                     <transition
@@ -54,7 +63,7 @@
                       leave-from-class="opacity-100"
                       leave-to-class="opacity-0"
                     >
-                      <ListboxOptions class="absolute z-[9999] mt-1 max-h-60 w-full overflow-auto rounded-xl bg-gray-800/95 backdrop-blur-lg py-1 text-base shadow-lg border border-gray-700/30 focus:outline-none">
+                      <ListboxOptions class="absolute z-[9999] mt-1 max-h-60 w-full overflow-auto rounded-xl bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg py-1 text-base shadow-lg border border-light-border dark:border-gray-700/30 focus:outline-none">
                         <ListboxOption
                           v-slot="{ active, selected }"
                           :value="null"
@@ -62,7 +71,7 @@
                         >
                           <span 
                             :class="[
-                              active ? 'bg-purple-400/20 text-white' : 'text-gray-300',
+                              active ? 'bg-purple-400/20 text-light-text dark:text-white' : 'text-light-text-secondary dark:text-gray-300',
                               'block truncate px-4 py-2'
                             ]"
                           >
@@ -79,7 +88,7 @@
                         >
                           <span 
                             :class="[
-                              active ? 'bg-purple-400/20 text-white' : 'text-gray-300',
+                              active ? 'bg-purple-400/20 text-light-text dark:text-white' : 'text-light-text-secondary dark:text-gray-300',
                               'block truncate px-4 py-2'
                             ]"
                           >
@@ -96,11 +105,11 @@
           </div>
 
           <!-- Список треков -->
-          <div class="bg-gray-800/40 backdrop-blur-lg rounded-2xl border border-gray-700/30 shadow-xl overflow-hidden z-0 relative">
-            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-900/30 border-b border-gray-700/30">
-              <div class="col-span-5 text-gray-400 font-medium">Трек</div>
-              <div class="col-span-2 text-gray-400 font-medium">Жанр</div>
-              <div class="col-span-2 text-gray-400 font-medium">Цена</div>
+          <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl overflow-hidden z-0 relative">
+            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-light-bg dark:bg-gray-900/30 border-b border-light-border dark:border-gray-700/30">
+              <div class="col-span-5 text-light-text-secondary dark:text-gray-400 font-medium">Трек</div>
+              <div class="col-span-2 text-light-text-secondary dark:text-gray-400 font-medium">Жанр</div>
+              <div class="col-span-2 text-light-text-secondary dark:text-gray-400 font-medium">Цена</div>
               <div class="col-span-3"></div>
             </div>
 
@@ -108,7 +117,7 @@
               <div
                   v-for="track in filteredTracks"
                   :key="track.id"
-                  class="group bg-gray-900/20 hover:bg-gray-800/40 rounded-xl border border-gray-700/30 hover:border-purple-400/30 transition-all"
+                  class="group bg-light-bg dark:bg-gray-900/20 hover:bg-light-bg-secondary dark:hover:bg-gray-800/40 rounded-xl border border-light-border dark:border-gray-700/30 hover:border-purple-400/30 transition-all"
               >
                 <!-- Мобильная версия -->
                 <div class="md:hidden p-4 space-y-4">
@@ -117,18 +126,18 @@
                       <img
                           :src="track.icon"
                           :alt="track.title"
-                          class="w-full h-full rounded-xl object-cover border border-gray-700/30 shadow-lg"
+                          class="w-full h-full rounded-xl object-cover border border-light-border dark:border-gray-700/30 shadow-lg"
                       />
                       <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent rounded-xl"></div>
                       <MusicalNoteIcon class="absolute bottom-2 right-2 w-4 h-4 text-purple-400" />
                     </div>
                     <div class="flex-1 min-w-0">
-                      <h3 class="font-medium text-gray-100 truncate">{{ track.title }}</h3>
-                      <p class="text-sm text-gray-400">{{ track.artist }}</p>
+                      <h3 class="font-medium text-light-text dark:text-gray-100 truncate">{{ track.title }}</h3>
+                      <p class="text-sm text-light-text-secondary dark:text-gray-400">{{ track.artist }}</p>
                     </div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="px-3 py-1 bg-gray-800/50 rounded-full text-sm text-purple-400 border border-purple-400/20">
+                    <span class="px-3 py-1 bg-light-bg dark:bg-gray-800/50 rounded-full text-sm text-purple-400 border border-purple-400/20">
                       {{ track.genre.name }}
                     </span>
                     <span class="text-green-400 font-medium">{{ track.price }} ₽</span>
@@ -149,19 +158,19 @@
                         <img
                             :src="track.icon"
                             :alt="track.title"
-                            class="w-full h-full rounded-xl object-cover border border-gray-700/30 shadow-lg"
+                            class="w-full h-full rounded-xl object-cover border border-light-border dark:border-gray-700/30 shadow-lg"
                         />
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent rounded-xl"></div>
                         <MusicalNoteIcon class="absolute bottom-2 right-2 w-4 h-4 text-purple-400" />
                       </div>
                       <div>
-                        <h3 class="font-medium text-gray-100">{{ track.title }}</h3>
-                        <p class="text-sm text-gray-400">{{ track.artist }}</p>
+                        <h3 class="font-medium text-light-text dark:text-gray-100">{{ track.title }}</h3>
+                        <p class="text-sm text-light-text-secondary dark:text-gray-400">{{ track.artist }}</p>
                       </div>
                     </div>
                   </div>
                   <div class="col-span-2">
-                    <span class="px-3 py-1 bg-gray-800/50 rounded-full text-sm text-purple-400 border border-purple-400/20">
+                    <span class="px-3 py-1 bg-light-bg dark:bg-gray-800/50 rounded-full text-sm text-purple-400 border border-purple-400/20">
                       {{ track.genre.name }}
                     </span>
                   </div>
@@ -190,20 +199,20 @@
           v-if="showPriceModal"
           class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
       >
-        <div class="bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-gray-700/30 shadow-2xl max-w-md w-full">
-          <h3 class="text-xl font-bold text-gray-200 mb-4 truncate">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-2xl max-w-md w-full">
+          <h3 class="text-xl font-bold text-light-text dark:text-gray-200 mb-4 truncate">
             {{ selectedTrack?.title }} - {{ selectedTrack?.artist }}
           </h3>
 
           <form @submit.prevent="createRequest" class="space-y-6">
             <div>
-              <label class="block text-gray-400 mb-2">Ваша цена</label>
+              <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Ваша цена</label>
               <input
                   type="number"
                   v-model.number="userFee"
                   :min="selectedTrack?.price || 0"
                   required
-                  class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
+                  class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
                   :placeholder="`Минимум ${selectedTrack?.price} ₽`"
               />
             </div>
@@ -212,7 +221,7 @@
               <button
                   type="button"
                   @click="cancelTrackSelection"
-                  class="px-6 py-2.5 bg-gray-700/10 hover:bg-gray-700/20 border border-gray-700/30 text-gray-400 rounded-xl transition-all"
+                  class="px-6 py-2.5 bg-light-bg dark:bg-gray-700/10 hover:bg-light-bg-secondary dark:hover:bg-gray-700/20 border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 rounded-xl transition-all"
               >
                 Отмена
               </button>
@@ -236,24 +245,24 @@
           v-if="showResultModal"
           class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
       >
-        <div class="bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-gray-700/30 shadow-2xl max-w-md w-full">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-2xl max-w-md w-full">
           <div class="text-center mb-6">
             <CheckCircleIcon class="w-12 h-12 text-green-400 mx-auto mb-4 animate-pulse" />
-            <h3 class="text-xl font-bold text-gray-200 mb-2">Запрос успешно создан!</h3>
+            <h3 class="text-xl font-bold text-light-text dark:text-gray-200 mb-2">Запрос успешно создан!</h3>
           </div>
 
           <div class="space-y-4 mb-6">
-            <div class="p-4 bg-gray-900/20 rounded-xl">
-              <p class="text-gray-100 font-medium truncate">{{ currentRequest?.track.title }}</p>
-              <p class="text-sm text-gray-400">{{ currentRequest?.track.artist }}</p>
+            <div class="p-4 bg-light-bg dark:bg-gray-900/20 rounded-xl">
+              <p class="text-light-text dark:text-gray-100 font-medium truncate">{{ currentRequest?.track.title }}</p>
+              <p class="text-sm text-light-text-secondary dark:text-gray-400">{{ currentRequest?.track.artist }}</p>
             </div>
             <div class="grid grid-cols-2 gap-4">
-              <div class="p-3 bg-gray-900/20 rounded-lg">
-                <p class="text-xs text-gray-400 mb-1">Ваша цена</p>
+              <div class="p-3 bg-light-bg dark:bg-gray-900/20 rounded-lg">
+                <p class="text-xs text-light-text-secondary dark:text-gray-400 mb-1">Ваша цена</p>
                 <p class="text-green-400 font-medium">{{ currentRequest?.user_fee }} ₽</p>
               </div>
-              <div class="p-3 bg-gray-900/20 rounded-lg">
-                <p class="text-xs text-gray-400 mb-1">Статус</p>
+              <div class="p-3 bg-light-bg dark:bg-gray-900/20 rounded-lg">
+                <p class="text-xs text-light-text-secondary dark:text-gray-400 mb-1">Статус</p>
                 <span :class="currentRequest?.is_paid ? 'text-green-400' : 'text-amber-400'" class="font-medium">
                   {{ currentRequest?.is_paid ? 'Оплачен' : 'Ожидает оплаты' }}
                 </span>
@@ -271,7 +280,7 @@
             </button>
             <button
                 @click="closeResultModal"
-                class="w-full py-2.5 bg-gray-700/10 hover:bg-gray-700/20 border border-gray-700/30 text-gray-400 rounded-xl transition-all"
+                class="w-full py-2.5 bg-light-bg dark:bg-gray-700/10 hover:bg-light-bg-secondary dark:hover:bg-gray-700/20 border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 rounded-xl transition-all"
             >
               Закрыть
             </button>
@@ -294,9 +303,12 @@ import {
   ListBulletIcon,
   CheckCircleIcon,
   ChevronUpDownIcon,
-  CheckIcon
+  CheckIcon,
+  SunIcon,
+  MoonIcon
 } from '@heroicons/vue/24/outline';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
+import { useThemeStore } from '@/stores/theme';
 
 const route = useRoute();
 const router = useRouter();
@@ -318,6 +330,13 @@ const requestLoading = ref(false);
 
 const showResultModal = ref(false);
 const currentRequest = ref<TrackRequest | null>(null);
+
+const themeStore = useThemeStore();
+const isDark = computed(() => themeStore.isDark);
+
+function toggleTheme() {
+  themeStore.toggleTheme();
+}
 
 async function fetchTracks() {
   try {

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <NavBar />
 
     <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
@@ -12,53 +12,53 @@
           {{ tracksStore.error }}
         </div>
 
-        <form @submit.prevent="handleSubmit" class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl space-y-6 relative z-[10]">
+        <form @submit.prevent="handleSubmit" class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl space-y-6 relative z-[10]">
           <div>
-            <label class="block text-gray-400 mb-2">Название трека</label>
+            <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Название трека</label>
             <input
                 type="text"
                 v-model="formData.title"
                 required
-                class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                 placeholder="Введите название"
             />
           </div>
 
           <div>
-            <label class="block text-gray-400 mb-2">Исполнитель</label>
+            <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Исполнитель</label>
             <input
                 type="text"
                 v-model="formData.artist"
                 required
-                class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                 placeholder="Введите исполнителя"
             />
           </div>
 
           <div>
-            <label class="block text-gray-400 mb-2">Обложка трека</label>
+            <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Обложка трека</label>
             <input
                 type="text"
                 v-model="formData.icon"
                 required
-                class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                 placeholder="Ссылка на изображение"
             />
           </div>
 
           <div>
-            <label class="block text-gray-400 mb-2">Жанр</label>
+            <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Жанр</label>
             <div class="flex gap-2">
               <div class="relative flex-1">
                 <Listbox v-model="formData.genre_id" as="div" class="w-full">
                   <input type="hidden" :value="formData.genre_id" required />
                   <div class="relative z-[999]">
-                    <ListboxButton class="w-full pl-4 pr-10 py-3.5 text-left text-white bg-gray-900/20 border border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 appearance-none transition-all placeholder-gray-500">
+                    <ListboxButton class="w-full pl-4 pr-10 py-3.5 text-left text-light-text dark:text-white bg-light-bg dark:bg-gray-900/20 border border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 appearance-none transition-all placeholder-gray-500">
                       <span class="block truncate">
                         {{ formData.genre_id ? tracksStore.genres.find(g => g.id === Number(formData.genre_id))?.name : 'Выберите жанр' }}
                       </span>
                       <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <ChevronUpDownIcon class="h-5 w-5 text-light-text-secondary dark:text-gray-400" aria-hidden="true" />
                       </span>
                     </ListboxButton>
                     <transition
@@ -66,7 +66,7 @@
                       leave-from-class="opacity-100"
                       leave-to-class="opacity-0"
                     >
-                      <ListboxOptions class="absolute z-[9999] mt-1 max-h-60 w-full overflow-auto rounded-xl bg-gray-800/95 backdrop-blur-lg py-1 text-base shadow-lg border border-gray-700/30 focus:outline-none">
+                      <ListboxOptions class="absolute z-[9999] mt-1 max-h-60 w-full overflow-auto rounded-xl bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg py-1 text-base shadow-lg border border-light-border dark:border-gray-700/30 focus:outline-none">
                         <ListboxOption
                           v-slot="{ active, selected }"
                           :value="''"
@@ -75,7 +75,7 @@
                         >
                           <span 
                             :class="[
-                              active ? 'bg-purple-400/20 text-white' : 'text-gray-300',
+                              active ? 'bg-purple-400/20 text-light-text dark:text-white' : 'text-light-text-secondary dark:text-gray-300',
                               'block truncate px-4 py-2'
                             ]"
                           >
@@ -91,7 +91,7 @@
                         >
                           <span 
                             :class="[
-                              active ? 'bg-purple-400/20 text-white' : 'text-gray-300',
+                              active ? 'bg-purple-400/20 text-light-text dark:text-white' : 'text-light-text-secondary dark:text-gray-300',
                               'block truncate px-4 py-2'
                             ]"
                           >
@@ -107,7 +107,7 @@
               <button
                   type="button"
                   @click="showAddGenre = true"
-                  class="p-3.5 bg-gray-900/20 hover:bg-purple-400/10 border border-gray-700/30 hover:border-purple-400/30 rounded-xl transition-all group"
+                  class="p-3.5 bg-light-bg dark:bg-gray-900/20 hover:bg-purple-400/10 border border-light-border dark:border-gray-700/30 hover:border-purple-400/30 rounded-xl transition-all group"
               >
                 <PlusCircleIcon class="w-6 h-6 text-purple-400 group-hover:rotate-90 transition-transform" />
               </button>
@@ -115,13 +115,13 @@
           </div>
 
           <div>
-            <label class="block text-gray-400 mb-2">Цена</label>
+            <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Цена</label>
             <input
                 type="number"
                 v-model.number="formData.price"
                 min="1"
                 required
-                class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                 placeholder="Стоимость в рублях"
             />
           </div>
@@ -129,7 +129,7 @@
           <div class="flex flex-col md:flex-row gap-4 justify-end">
             <router-link
                 to="/tracks"
-                class="px-6 py-3 text-gray-400 hover:text-gray-200 transition-colors text-center"
+                class="px-6 py-3 text-light-text-secondary dark:text-gray-400 hover:text-light-text dark:hover:text-gray-200 transition-colors text-center"
             >
               Отмена
             </router-link>
@@ -155,19 +155,19 @@
           v-if="showAddGenre"
           class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
       >
-        <div class="bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-gray-700/30 shadow-2xl max-w-md w-full">
-          <h3 class="text-xl font-bold text-gray-200 mb-6 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 w-max px-4 py-1 rounded-full">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-2xl max-w-md w-full">
+          <h3 class="text-xl font-bold text-light-text dark:text-gray-200 mb-6 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 w-max px-4 py-1 rounded-full">
             Новый жанр
           </h3>
 
           <form @submit.prevent="handleAddGenre" class="space-y-6">
             <div>
-              <label class="block text-gray-400 mb-2">Название жанра</label>
+              <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Название жанра</label>
               <input
                   type="text"
                   v-model="newGenreName"
                   required
-                  class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                  class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                   placeholder="Введите название"
               />
             </div>
@@ -176,7 +176,7 @@
               <button
                   type="button"
                   @click="showAddGenre = false"
-                  class="px-6 py-3 bg-gray-700/10 hover:bg-gray-700/20 border border-gray-700/30 text-gray-400 rounded-xl transition-all"
+                  class="px-6 py-3 bg-light-bg dark:bg-gray-700/10 hover:bg-light-bg-secondary dark:hover:bg-gray-700/20 border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 rounded-xl transition-all"
               >
                 Отмена
               </button>

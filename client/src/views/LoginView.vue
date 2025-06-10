@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <NavBar />
 
     <main class="flex-1 container mx-auto px-4 py-12">
@@ -13,32 +13,32 @@
           {{ authStore.error }}
         </div>
 
-        <form @submit.prevent="handleLogin" class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700/30 space-y-6">
+        <form @submit.prevent="handleLogin" class="bg-light-bg-secondary dark:bg-gray-800/50 p-8 rounded-2xl border border-light-border dark:border-gray-700/30 space-y-6">
           <div>
-            <label class="block text-gray-400 mb-2">Имя пользователя</label>
+            <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Имя пользователя</label>
             <div class="relative">
-              <UserCircleIcon class="w-5 h-5 absolute left-3 top-3 text-gray-400" />
+              <UserCircleIcon class="w-5 h-5 absolute left-3 top-3 text-light-text-secondary dark:text-gray-400" />
               <input
                   id="username"
                   type="text"
                   v-model="username"
                   required
-                  class="w-full pl-10 pr-4 py-3 text-white bg-gray-900 border border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
+                  class="w-full pl-10 pr-4 py-3 text-light-text dark:text-white bg-light-bg dark:bg-gray-900 border border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
                   placeholder="Введите логин"
               />
             </div>
           </div>
 
           <div>
-            <label class="block text-gray-400 mb-2">Пароль</label>
+            <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Пароль</label>
             <div class="relative">
-              <LockClosedIcon class="w-5 h-5 absolute left-3 top-3 text-gray-400" />
+              <LockClosedIcon class="w-5 h-5 absolute left-3 top-3 text-light-text-secondary dark:text-gray-400" />
               <input
                   id="password"
                   type="password"
                   v-model="password"
                   required
-                  class="w-full pl-10 pr-4 py-3 text-white bg-gray-900 border border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
+                  class="w-full pl-10 pr-4 py-3 text-light-text dark:text-white bg-light-bg dark:bg-gray-900 border border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all"
                   placeholder="Введите пароль"
               />
             </div>
@@ -56,7 +56,7 @@
             <span v-else>Войти</span>
           </button>
 
-          <p class="text-center text-gray-400">
+          <p class="text-center text-light-text-secondary dark:text-gray-400">
             Нет аккаунта?
             <router-link to="/register" class="text-purple-400 hover:text-purple-300 transition-colors">
               Зарегистрироваться

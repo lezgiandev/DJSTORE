@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <NavBar />
 
     <main class="flex-1 container mx-auto px-4 py-24 flex items-center justify-center">
@@ -12,7 +12,7 @@
           404
         </h1>
 
-        <p class="text-xl md:text-2xl text-gray-400 mb-8">
+        <p class="text-xl md:text-2xl text-light-text-secondary dark:text-gray-400 mb-8">
           Запрашиваемая страница не существует
         </p>
 

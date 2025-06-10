@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <NavBar />
 
     <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
@@ -19,18 +19,18 @@
         </div>
 
         <!-- Фильтры -->
-        <div class="bg-gray-800/40 backdrop-blur-lg p-6 rounded-2xl border border-gray-700/30 shadow-xl mb-8 relative z-[99]">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl mb-8 relative z-[99]">
           <div class="grid md:grid-cols-3 gap-4">
             <div class="relative">
               <Listbox v-model="filters.genre">
                 <div class="relative z-[999]">
-                  <ListboxButton class="w-full pl-10 pr-4 py-2.5 text-left text-white bg-gray-900/20 border border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 appearance-none">
-                    <ListBulletIcon class="w-5 h-5 absolute left-3 top-3 text-gray-400 z-10" />
+                  <ListboxButton class="w-full pl-10 pr-4 py-2.5 text-left text-light-text dark:text-white bg-light-bg dark:bg-gray-900/20 border border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 appearance-none">
+                    <ListBulletIcon class="w-5 h-5 absolute left-3 top-3 text-light-text-secondary dark:text-gray-400 z-10" />
                     <span class="block truncate">
                       {{ filters.genre ? tracksStore.genres.find(g => g.id === filters.genre)?.name : 'Все жанры' }}
                     </span>
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                      <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <ChevronUpDownIcon class="h-5 w-5 text-light-text-secondary dark:text-gray-400" aria-hidden="true" />
                     </span>
                   </ListboxButton>
                   <transition
@@ -38,7 +38,7 @@
                     leave-from-class="opacity-100"
                     leave-to-class="opacity-0"
                   >
-                    <ListboxOptions class="absolute z-[9999] mt-1 max-h-60 w-full overflow-auto rounded-xl bg-gray-800/95 backdrop-blur-lg py-1 text-base shadow-lg border border-gray-700/30 focus:outline-none">
+                    <ListboxOptions class="absolute z-[9999] mt-1 max-h-60 w-full overflow-auto rounded-xl bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg py-1 text-base shadow-lg border border-light-border dark:border-gray-700/30 focus:outline-none">
                       <ListboxOption
                         v-slot="{ active, selected }"
                         :value="null"
@@ -46,7 +46,7 @@
                       >
                         <span 
                           :class="[
-                            active ? 'bg-purple-400/20 text-white' : 'text-gray-300',
+                            active ? 'bg-purple-400/20 text-light-text dark:text-white' : 'text-light-text-secondary dark:text-gray-300',
                             'block truncate px-4 py-2'
                           ]"
                         >
@@ -63,7 +63,7 @@
                       >
                         <span 
                           :class="[
-                            active ? 'bg-purple-400/20 text-white' : 'text-gray-300',
+                            active ? 'bg-purple-400/20 text-light-text dark:text-white' : 'text-light-text-secondary dark:text-gray-300',
                             'block truncate px-4 py-2'
                           ]"
                         >
@@ -78,12 +78,12 @@
             </div>
 
             <div class="relative">
-              <MagnifyingGlassIcon class="w-5 h-5 absolute left-3 top-3 text-gray-400 z-10" />
+              <MagnifyingGlassIcon class="w-5 h-5 absolute left-3 top-3 text-light-text-secondary dark:text-gray-400 z-10" />
               <input
                   type="text"
                   v-model="filters.search"
                   placeholder="Поиск по названию или исполнителю"
-                  class="w-full pl-10 pr-4 py-2.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20"
+                  class="w-full pl-10 pr-4 py-2.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20"
               />
             </div>
 
@@ -97,25 +97,25 @@
               </button>
               <button
                   @click="resetFilters"
-                  class="px-4 py-2.5 bg-gray-700/10 hover:bg-gray-700/20 border border-gray-700/30 rounded-xl transition-all group"
+                  class="px-4 py-2.5 bg-light-bg dark:bg-gray-700/10 hover:bg-light-bg-secondary dark:hover:bg-gray-700/20 border border-light-border dark:border-gray-700/30 rounded-xl transition-all group"
               >
-                <ArrowPathIcon class="w-5 h-5 text-gray-400 group-hover:rotate-180 transition-transform" />
+                <ArrowPathIcon class="w-5 h-5 text-light-text-secondary dark:text-gray-400 group-hover:rotate-180 transition-transform" />
               </button>
             </div>
           </div>
         </div>
 
         <!-- Контент треков -->
-        <div class="bg-gray-800/40 backdrop-blur-lg z-0 rounded-2xl border border-gray-700/30 shadow-xl overflow-hidden">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg z-0 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl overflow-hidden">
           <div v-if="tracksStore.loading" class="p-8 text-center">
-            <div class="inline-flex items-center gap-3 text-gray-400">
+            <div class="inline-flex items-center gap-3 text-light-text-secondary dark:text-gray-400">
               <ArrowPathIcon class="w-6 h-6 animate-spin-once" />
               <span>Загрузка треков...</span>
             </div>
           </div>
 
           <div v-else-if="tracksStore.tracks.length === 0" class="p-8 text-center">
-            <p class="text-gray-400 mb-4">Нет доступных треков</p>
+            <p class="text-light-text-secondary dark:text-gray-400 mb-4">Нет доступных треков</p>
             <router-link
                 to="/tracks/add"
                 class="text-purple-400 hover:text-purple-300 transition-colors"
@@ -128,23 +128,23 @@
             <!-- Таблица для десктопов -->
             <div class="hidden md:block overflow-x-auto">
               <table class="w-full">
-                <thead class="bg-gray-900/30 border-b border-gray-700/30">
+                <thead class="bg-light-bg dark:bg-gray-900/30 border-b border-light-border dark:border-gray-700/30">
                 <tr>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-gray-400">Трек</th>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-gray-400">Жанр</th>
-                  <th class="px-6 py-4 text-left text-sm font-medium text-gray-400">Цена</th>
-                  <th class="px-6 py-4 text-right text-sm font-medium text-gray-400">Действия</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium text-light-text-secondary dark:text-gray-400">Трек</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium text-light-text-secondary dark:text-gray-400">Жанр</th>
+                  <th class="px-6 py-4 text-left text-sm font-medium text-light-text-secondary dark:text-gray-400">Цена</th>
+                  <th class="px-6 py-4 text-right text-sm font-medium text-light-text-secondary dark:text-gray-400">Действия</th>
                 </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-700/30">
+                <tbody class="divide-y divide-light-border dark:divide-gray-700/30">
                 <tr
                     v-for="track in tracksStore.tracks"
                     :key="track.id"
-                    class="hover:bg-gray-700/10 transition-colors group"
+                    class="hover:bg-light-bg dark:hover:bg-gray-700/10 transition-colors group"
                 >
                   <td class="px-6 py-4">
                     <div class="flex items-center gap-4">
-                      <div class="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-gray-700/30">
+                      <div class="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-light-border dark:border-gray-700/30">
                         <img
                             :src="track.icon"
                             :alt="track.title"
@@ -154,14 +154,14 @@
                         <MusicalNoteIcon class="absolute bottom-2 right-2 w-4 h-4 text-purple-400" />
                       </div>
                       <div>
-                        <p class="font-medium text-gray-100">{{ track.title }}</p>
-                        <p class="text-sm text-gray-400">{{ track.artist }}</p>
+                        <p class="font-medium text-light-text dark:text-gray-100">{{ track.title }}</p>
+                        <p class="text-sm text-light-text-secondary dark:text-gray-400">{{ track.artist }}</p>
                       </div>
                     </div>
                   </td>
 
                   <td class="px-6 py-4">
-                      <span class="px-3 py-1 bg-gray-900/50 rounded-full text-sm text-purple-400 border border-purple-400/20">
+                      <span class="px-3 py-1 bg-light-bg dark:bg-gray-900/50 rounded-full text-sm text-purple-400 border border-purple-400/20">
                         {{ track.genre.name }}
                       </span>
                   </td>
@@ -197,10 +197,10 @@
               <div
                   v-for="track in tracksStore.tracks"
                   :key="track.id"
-                  class="bg-gray-800/30 rounded-xl border border-gray-700/30 hover:border-purple-400/30 transition-all group"
+                  class="bg-light-bg dark:bg-gray-800/30 rounded-xl border border-light-border dark:border-gray-700/30 hover:border-purple-400/30 transition-all group"
               >
                 <div class="flex items-start p-4 gap-3">
-                  <div class="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gray-700/30">
+                  <div class="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-light-border dark:border-gray-700/30">
                     <img
                         :src="track.icon"
                         :alt="track.title"
@@ -211,11 +211,11 @@
                   </div>
 
                   <div class="flex-1 min-w-0">
-                    <h3 class="font-medium text-gray-100 mb-1 truncate">{{ track.title }}</h3>
-                    <p class="text-sm text-gray-400 mb-2">{{ track.artist }}</p>
+                    <h3 class="font-medium text-light-text dark:text-gray-100 mb-1 truncate">{{ track.title }}</h3>
+                    <p class="text-sm text-light-text-secondary dark:text-gray-400 mb-2">{{ track.artist }}</p>
 
                     <div class="flex flex-wrap items-center gap-2 mb-2">
-                      <span class="px-3 py-1 bg-gray-900/50 rounded-full text-xs text-purple-400 border border-purple-400/20">
+                      <span class="px-3 py-1 bg-light-bg dark:bg-gray-900/50 rounded-full text-xs text-purple-400 border border-purple-400/20">
                         {{ track.genre.name }}
                       </span>
                       <span class="text-green-400 font-medium text-sm">{{ track.price }} ₽</span>
@@ -223,7 +223,7 @@
                   </div>
                 </div>
 
-                <div class="flex justify-between items-center px-4 py-3 bg-gray-900/20 border-t border-gray-700/30">
+                <div class="flex justify-between items-center px-4 py-3 bg-light-bg-secondary dark:bg-gray-900/20 border-t border-light-border dark:border-gray-700/30">
                   <router-link
                       :to="`/tracks/${track.id}/edit`"
                       class="flex items-center gap-1.5 text-blue-400 text-sm hover:text-blue-300 transition-colors"
@@ -253,11 +253,11 @@
           v-if="showDeleteModal"
           class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
       >
-        <div class="bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-gray-700/30 shadow-2xl max-w-md w-full">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-2xl max-w-md w-full">
           <div class="text-center mb-6">
             <ExclamationTriangleIcon class="w-12 h-12 text-red-400 mx-auto mb-4 animate-pulse" />
-            <h3 class="text-xl font-bold text-gray-200 mb-2">Удалить трек?</h3>
-            <p class="text-gray-400">
+            <h3 class="text-xl font-bold text-light-text dark:text-gray-200 mb-2">Удалить трек?</h3>
+            <p class="text-light-text-secondary dark:text-gray-400">
               Трек <span class="text-purple-400">"{{ trackToDelete?.title }}"</span> будет удалён безвозвратно
             </p>
           </div>
@@ -265,7 +265,7 @@
           <div class="flex justify-center gap-4">
             <button
                 @click="cancelDelete"
-                class="px-6 py-2.5 bg-gray-700/10 hover:bg-gray-700/20 border border-gray-700/30 text-gray-400 rounded-xl transition-all"
+                class="px-6 py-2.5 bg-light-bg dark:bg-gray-700/10 hover:bg-light-bg-secondary dark:hover:bg-gray-700/20 border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 rounded-xl transition-all"
             >
               Отмена
             </button>

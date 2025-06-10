@@ -1,13 +1,22 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
       <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-10 bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
-          Оплата запроса
-        </h1>
+        <div class="flex justify-between items-center mb-6 md:mb-10">
+          <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
+            Оплата запроса
+          </h1>
+          <button
+            @click="toggleTheme"
+            class="p-2 rounded-xl bg-light-bg-secondary dark:bg-gray-800/40 border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 hover:bg-light-bg dark:hover:bg-gray-700/40 transition-all"
+          >
+            <SunIcon v-if="isDark" class="w-6 h-6" />
+            <MoonIcon v-else class="w-6 h-6" />
+          </button>
+        </div>
 
-        <div v-if="loading" class="text-center p-8 bg-gray-800/40 rounded-2xl border border-gray-700/30">
-          <div class="inline-flex items-center gap-3 text-gray-400">
+        <div v-if="loading" class="text-center p-8 bg-light-bg-secondary dark:bg-gray-800/40 rounded-2xl border border-light-border dark:border-gray-700/30">
+          <div class="inline-flex items-center gap-3 text-light-text-secondary dark:text-gray-400">
             <ArrowPathIcon class="w-6 h-6 animate-spin-once" />
             <span>Загрузка информации...</span>
           </div>
@@ -17,68 +26,68 @@
           {{ error }}
         </div>
 
-        <div v-else-if="!requestData" class="p-8 bg-gray-800/40 rounded-2xl border border-gray-700/30 text-gray-400 text-center">
+        <div v-else-if="!requestData" class="p-8 bg-light-bg-secondary dark:bg-gray-800/40 rounded-2xl border border-light-border dark:border-gray-700/30 text-light-text-secondary dark:text-gray-400 text-center">
           Платежная информация не найдена
         </div>
 
         <div v-else class="space-y-8">
           <!-- Информация о треке -->
-          <div class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl">
-            <h2 class="text-xl md:text-2xl font-bold text-gray-200 mb-6 bg-gradient-to-r from-purple-400/30 to-blue-400/30 w-max px-4 py-1 rounded-full">
+          <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl">
+            <h2 class="text-xl md:text-2xl font-bold text-light-text dark:text-gray-200 mb-6 bg-gradient-to-r from-purple-400/30 to-blue-400/30 w-max px-4 py-1 rounded-full">
               Информация о треке
             </h2>
             <div class="grid md:grid-cols-2 gap-4">
-              <div class="flex items-center gap-3 p-3 bg-gray-900/20 rounded-xl">
+              <div class="flex items-center gap-3 p-3 bg-light-bg dark:bg-gray-900/20 rounded-xl">
                 <div class="p-2 bg-purple-400/10 rounded-lg border border-purple-400/20">
                   <MusicalNoteIcon class="w-6 h-6 text-purple-400" />
                 </div>
                 <div>
-                  <p class="text-sm text-gray-400">Название</p>
-                  <p class="font-medium text-gray-100">{{ requestData.track.title }}</p>
+                  <p class="text-sm text-light-text-secondary dark:text-gray-400">Название</p>
+                  <p class="font-medium text-light-text dark:text-gray-100">{{ requestData.track.title }}</p>
                 </div>
               </div>
-              <div class="flex items-center gap-3 p-3 bg-gray-900/20 rounded-xl">
+              <div class="flex items-center gap-3 p-3 bg-light-bg dark:bg-gray-900/20 rounded-xl">
                 <div class="p-2 bg-purple-400/10 rounded-lg border border-purple-400/20">
                   <UserIcon class="w-6 h-6 text-purple-400" />
                 </div>
                 <div>
-                  <p class="text-sm text-gray-400">Исполнитель</p>
-                  <p class="font-medium text-gray-100">{{ requestData.track.artist }}</p>
+                  <p class="text-sm text-light-text-secondary dark:text-gray-400">Исполнитель</p>
+                  <p class="font-medium text-light-text dark:text-gray-100">{{ requestData.track.artist }}</p>
                 </div>
               </div>
-              <div class="flex items-center gap-3 p-3 bg-gray-900/20 rounded-xl">
+              <div class="flex items-center gap-3 p-3 bg-light-bg dark:bg-gray-900/20 rounded-xl">
                 <div class="p-2 bg-purple-400/10 rounded-lg border border-purple-400/20">
                   <TagIcon class="w-6 h-6 text-purple-400" />
                 </div>
                 <div>
-                  <p class="text-sm text-gray-400">Жанр</p>
-                  <p class="font-medium text-gray-100">{{ requestData.track.genre.name }}</p>
+                  <p class="text-sm text-light-text-secondary dark:text-gray-400">Жанр</p>
+                  <p class="font-medium text-light-text dark:text-gray-100">{{ requestData.track.genre.name }}</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Информация о платеже -->
-          <div class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl">
-            <h2 class="text-xl md:text-2xl font-bold text-gray-200 mb-6 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 w-max px-4 py-1 rounded-full">
+          <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl">
+            <h2 class="text-xl md:text-2xl font-bold text-light-text dark:text-gray-200 mb-6 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 w-max px-4 py-1 rounded-full">
               Детали платежа
             </h2>
             <div class="grid md:grid-cols-2 gap-4">
-              <div class="flex items-center gap-3 p-3 bg-gray-900/20 rounded-xl">
+              <div class="flex items-center gap-3 p-3 bg-light-bg dark:bg-gray-900/20 rounded-xl">
                 <div class="p-2 bg-green-400/10 rounded-lg border border-green-400/20">
                   <CurrencyDollarIcon class="w-6 h-6 text-green-400" />
                 </div>
                 <div>
-                  <p class="text-sm text-gray-400">Сумма</p>
+                  <p class="text-sm text-light-text-secondary dark:text-gray-400">Сумма</p>
                   <p class="text-2xl font-bold text-green-400">{{ requestData.user_fee }} ₽</p>
                 </div>
               </div>
-              <div class="flex items-center gap-3 p-3 bg-gray-900/20 rounded-xl">
+              <div class="flex items-center gap-3 p-3 bg-light-bg dark:bg-gray-900/20 rounded-xl">
                 <div class="p-2 bg-amber-400/10 rounded-lg border border-amber-400/20">
                   <ClockIcon class="w-6 h-6 text-amber-400" />
                 </div>
                 <div>
-                  <p class="text-sm text-gray-400">Статус</p>
+                  <p class="text-sm text-light-text-secondary dark:text-gray-400">Статус</p>
                   <span :class="requestData.is_paid ? 'text-green-400' : 'text-amber-400'" class="font-medium">
                     {{ requestData.is_paid ? 'Оплачен' : 'Ожидает оплаты' }}
                   </span>
@@ -88,21 +97,21 @@
           </div>
 
           <!-- Форма оплаты -->
-          <div v-if="!requestData.is_paid" class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl">
-            <h2 class="text-xl md:text-2xl font-bold text-gray-200 mb-6 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 w-max px-4 py-1 rounded-full">
+          <div v-if="!requestData.is_paid" class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl">
+            <h2 class="text-xl md:text-2xl font-bold text-light-text dark:text-gray-200 mb-6 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 w-max px-4 py-1 rounded-full">
               Оплата картой
             </h2>
             <form @submit.prevent="handlePayment" class="space-y-6">
               <div class="space-y-4">
                 <div>
-                  <label class="block text-gray-400 mb-2">Номер карты</label>
+                  <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Номер карты</label>
                   <input
                       type="text"
                       v-model="paymentForm.cardNumber"
                       pattern="[0-9]{16}"
                       maxlength="16"
                       required
-                      class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                      class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                       placeholder="1234 5678 9012 3456"
                   />
                 </div>
@@ -110,40 +119,40 @@
                 <div class="grid md:grid-cols-2 gap-4">
                   <div class="grid grid-cols-2 gap-3">
                     <div>
-                      <label class="block text-gray-400 mb-2">Месяц</label>
+                      <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Месяц</label>
                       <input
                           type="text"
                           v-model="paymentForm.cardMonth"
                           pattern="[0-9]{2}"
                           maxlength="2"
                           required
-                          class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                          class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                           placeholder="MM"
                       />
                     </div>
                     <div>
-                      <label class="block text-gray-400 mb-2">Год</label>
+                      <label class="block text-light-text-secondary dark:text-gray-400 mb-2">Год</label>
                       <input
                           type="text"
                           v-model="paymentForm.cardYear"
                           pattern="[0-9]{4}"
                           maxlength="4"
                           required
-                          class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                          class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                           placeholder="YYYY"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label class="block text-gray-400 mb-2">CVC/CVV</label>
+                    <label class="block text-light-text-secondary dark:text-gray-400 mb-2">CVC/CVV</label>
                     <input
                         type="text"
                         v-model="paymentForm.cardCvc"
                         pattern="[0-9]{3}"
                         maxlength="3"
                         required
-                        class="w-full p-3.5 bg-gray-900/20 border text-white border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
+                        class="w-full p-3.5 bg-light-bg dark:bg-gray-900/20 border text-light-text dark:text-white border-light-border dark:border-gray-700/30 rounded-xl focus:border-purple-400/50 focus:ring-2 focus:ring-purple-400/20 transition-all placeholder-gray-500"
                         placeholder="123"
                     />
                   </div>
@@ -175,10 +184,10 @@
           v-if="showSuccessModal"
           class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
       >
-        <div class="bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-gray-700/30 shadow-2xl max-w-md w-full text-center">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/95 backdrop-blur-lg p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-2xl max-w-md w-full text-center">
           <CheckCircleIcon class="w-12 h-12 text-green-400 mx-auto mb-4 animate-pulse" />
-          <h3 class="text-xl font-bold text-gray-200 mb-2">Оплата успешна!</h3>
-          <p class="text-gray-400 mb-6">Ваш запрос будет рассмотрен диджеем</p>
+          <h3 class="text-xl font-bold text-light-text dark:text-gray-200 mb-2">Оплата успешна!</h3>
+          <p class="text-light-text-secondary dark:text-gray-400 mb-6">Ваш запрос будет рассмотрен диджеем</p>
           <button
               @click="closeSuccessModal"
               class="px-6 py-2.5 bg-purple-400/10 hover:bg-purple-400/20 border border-purple-400/30 text-purple-400 rounded-xl transition-all"
@@ -203,8 +212,18 @@ import {
   TagIcon,
   CurrencyDollarIcon,
   ClockIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  SunIcon,
+  MoonIcon
 } from '@heroicons/vue/24/outline';
+import { useThemeStore } from '@/stores/theme';
+
+const themeStore = useThemeStore();
+const isDark = computed(() => themeStore.isDark);
+
+function toggleTheme() {
+  themeStore.toggleTheme();
+}
 
 const route = useRoute();
 const paymentToken = computed(() => route.params.token as string);

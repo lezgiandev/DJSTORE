@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <NavBar />
 
     <main class="flex-1 container mx-auto px-4 py-8">
@@ -9,14 +9,14 @@
         </h1>
 
         <!-- Вкладки -->
-        <div class="flex mb-6 bg-gray-800/40 backdrop-blur-lg rounded-xl border border-gray-700/30 overflow-hidden shadow-xl">
+        <div class="flex mb-6 bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg rounded-xl border border-light-border dark:border-gray-700/30 overflow-hidden shadow-xl">
           <button
               @click="activeTab = 'incoming'"
               :class="[
               'px-6 py-4 text-sm font-medium flex-1 transition-all flex items-center justify-center gap-2',
               activeTab === 'incoming'
-                ? 'bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-white border-r border-gray-700/30'
-                : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/50'
+                ? 'bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-light-text dark:text-white border-r border-light-border dark:border-gray-700/30'
+                : 'text-light-text-secondary dark:text-gray-400 hover:text-light-text dark:hover:text-gray-300 hover:bg-light-bg dark:hover:bg-gray-800/50'
             ]"
           >
             <InboxIcon class="w-5 h-5" />
@@ -27,8 +27,8 @@
               :class="[
               'px-6 py-4 text-sm font-medium flex-1 transition-all flex items-center justify-center gap-2',
               activeTab === 'processed'
-                ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-white border-l border-gray-700/30'
-                : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/50'
+                ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-light-text dark:text-white border-l border-light-border dark:border-gray-700/30'
+                : 'text-light-text-secondary dark:text-gray-400 hover:text-light-text dark:hover:text-gray-300 hover:bg-light-bg dark:hover:bg-gray-800/50'
             ]"
           >
             <CheckBadgeIcon class="w-5 h-5" />
@@ -37,9 +37,9 @@
         </div>
 
         <!-- Контент -->
-        <div class="bg-gray-800/40 backdrop-blur-lg rounded-2xl border border-gray-700/30 shadow-xl">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl">
           <div v-if="requestsStore.loading" class="p-8 text-center">
-            <div class="inline-flex items-center gap-3 text-gray-400">
+            <div class="inline-flex items-center gap-3 text-light-text-secondary dark:text-gray-400">
               <ArrowPathIcon class="w-6 h-6 animate-spin-once" />
               <span>Загрузка запросов...</span>
             </div>
@@ -49,7 +49,7 @@
             {{ requestsStore.error }}
           </div>
 
-          <div v-else-if="filteredRequests.length === 0" class="p-8 text-center text-gray-400">
+          <div v-else-if="filteredRequests.length === 0" class="p-8 text-center text-light-text-secondary dark:text-gray-400">
             <span v-if="activeTab === 'incoming'">Нет новых запросов</span>
             <span v-else>Нет обработанных запросов</span>
           </div>
@@ -58,12 +58,12 @@
             <div
                 v-for="request in filteredRequests"
                 :key="request.id"
-                class="group bg-gray-900/20 p-4 rounded-xl border border-gray-700/30 hover:border-purple-400/30 transition-all shadow-lg hover:shadow-purple-500/10"
+                class="group bg-light-bg dark:bg-gray-900/20 p-4 rounded-xl border border-light-border dark:border-gray-700/30 hover:border-purple-400/30 transition-all shadow-lg hover:shadow-purple-500/10"
             >
               <div class="flex flex-col md:flex-row gap-4 md:gap-6">
                 <!-- Обложка трека -->
                 <div class="flex-shrink-0 relative w-full sm:w-32 h-32">
-                  <div class="w-full h-full rounded-xl overflow-hidden border border-gray-700/30 transform group-hover:scale-[1.02] transition-transform">
+                  <div class="w-full h-full rounded-xl overflow-hidden border border-light-border dark:border-gray-700/30 transform group-hover:scale-[1.02] transition-transform">
                     <img
                         :src="request.track.icon"
                         :alt="request.track.title"
@@ -77,7 +77,7 @@
                 <!-- Информация о треке -->
                 <div class="flex-1 min-w-0">
                   <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
-                    <h3 class="text-lg md:text-xl font-semibold text-gray-100 truncate">
+                    <h3 class="text-lg md:text-xl font-semibold text-light-text dark:text-gray-100 truncate">
                       {{ request.track.title }}
                     </h3>
                     <span class="text-xs md:text-sm text-purple-400 whitespace-nowrap">
@@ -85,7 +85,7 @@
                     </span>
                   </div>
 
-                  <p class="text-gray-400 text-sm md:text-base mb-3">{{ request.track.artist }}</p>
+                  <p class="text-light-text-secondary dark:text-gray-400 text-sm md:text-base mb-3">{{ request.track.artist }}</p>
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Левая колонка -->
@@ -93,13 +93,13 @@
                       <!-- Статус и оплата -->
                       <div class="flex flex-wrap gap-3">
                         <div class="flex items-center gap-2">
-                          <span class="text-gray-400 text-sm">Статус:</span>
+                          <span class="text-light-text-secondary dark:text-gray-400 text-sm">Статус:</span>
                           <span :class="statusBadgeStyle(request.status)" class="px-3 py-1 rounded-full text-xs md:text-sm font-medium border">
                             {{ getStatusText(request.status) }}
                           </span>
                         </div>
                         <div class="flex items-center gap-2">
-                          <span class="text-gray-400 text-sm">Оплата:</span>
+                          <span class="text-light-text-secondary dark:text-gray-400 text-sm">Оплата:</span>
                           <span :class="request.is_paid ? 'text-green-400' : 'text-amber-400'" class="text-xs md:text-sm">
                             {{ request.is_paid ? 'Оплачен' : 'Ожидает оплаты' }}
                           </span>
@@ -108,12 +108,12 @@
 
                       <!-- Цены -->
                       <div class="grid grid-cols-2 gap-3">
-                        <div class="p-3 bg-gray-800/50 rounded-lg">
-                          <p class="text-xs text-gray-400 mb-1">Предложенная цена</p>
+                        <div class="p-3 bg-light-bg dark:bg-gray-800/50 rounded-lg">
+                          <p class="text-xs text-light-text-secondary dark:text-gray-400 mb-1">Предложенная цена</p>
                           <p class="text-base font-bold text-green-400">{{ request.user_fee }} ₽</p>
                         </div>
-                        <div class="p-3 bg-gray-800/50 rounded-lg">
-                          <p class="text-xs text-gray-400 mb-1">Минимальная цена</p>
+                        <div class="p-3 bg-light-bg dark:bg-gray-800/50 rounded-lg">
+                          <p class="text-xs text-light-text-secondary dark:text-gray-400 mb-1">Минимальная цена</p>
                           <p class="text-base font-bold text-blue-400">{{ request.min_fee }} ₽</p>
                         </div>
                       </div>

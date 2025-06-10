@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 flex flex-col">
+  <div class="min-h-screen bg-light-bg dark:bg-gray-900 flex flex-col">
     <NavBar />
 
     <main class="flex-1 container mx-auto px-4 py-8 md:py-12">
@@ -9,14 +9,14 @@
         </h1>
 
         <!-- Блок баланса -->
-        <div v-if="authStore.state.profile" class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl mb-8">
+        <div v-if="authStore.state.profile" class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl mb-8">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 md:gap-6">
             <div class="flex items-center space-x-3 md:space-x-4">
               <div class="p-2.5 bg-green-400/10 rounded-lg border border-green-400/20">
                 <CurrencyDollarIcon class="w-7 h-7 text-green-400" />
               </div>
               <div>
-                <p class="text-sm md:text-base text-gray-400">Доступный баланс</p>
+                <p class="text-sm md:text-base text-light-text-secondary dark:text-gray-400">Доступный баланс</p>
                 <p class="text-2xl md:text-3xl font-bold text-green-400">
                   {{ authStore.state.profile.balance }} ₽
                 </p>
@@ -33,13 +33,13 @@
         </div>
 
         <!-- История транзакций -->
-        <div class="bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-700/30 shadow-xl">
-          <h2 class="text-xl md:text-2xl font-bold text-gray-200 mb-6 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 w-max px-4 py-1 rounded-full">
+        <div class="bg-light-bg-secondary dark:bg-gray-800/40 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-light-border dark:border-gray-700/30 shadow-xl">
+          <h2 class="text-xl md:text-2xl font-bold text-light-text dark:text-gray-200 mb-6 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 w-max px-4 py-1 rounded-full">
             История операций
           </h2>
 
-          <div v-if="financeStore.loading" class="text-center p-6 bg-gray-900/20 rounded-xl border border-gray-700/30">
-            <div class="flex items-center justify-center space-x-3 text-gray-400">
+          <div v-if="financeStore.loading" class="text-center p-6 bg-light-bg dark:bg-gray-900/20 rounded-xl border border-light-border dark:border-gray-700/30">
+            <div class="flex items-center justify-center space-x-3 text-light-text-secondary dark:text-gray-400">
               <ArrowPathIcon class="w-6 h-6 animate-spin-once" />
               <span>Загрузка транзакций...</span>
             </div>
@@ -49,7 +49,7 @@
             {{ financeStore.error }}
           </div>
 
-          <div v-else-if="financeStore.transactions.length === 0" class="text-center p-6 text-gray-400">
+          <div v-else-if="financeStore.transactions.length === 0" class="text-center p-6 text-light-text-secondary dark:text-gray-400">
             Нет зарегистрированных операций
           </div>
 
@@ -57,20 +57,20 @@
             <!-- Десктоп таблица -->
             <div class="hidden md:block overflow-x-auto">
               <table class="w-full">
-                <thead class="bg-gray-900/30">
-                <tr class="border-b border-gray-700/30">
-                  <th class="px-5 py-3.5 text-left text-sm font-medium text-gray-400">Дата</th>
-                  <th class="px-5 py-3.5 text-left text-sm font-medium text-gray-400">Тип операции</th>
-                  <th class="px-5 py-3.5 text-left text-sm font-medium text-gray-400">Сумма</th>
+                <thead class="bg-light-bg dark:bg-gray-900/30">
+                <tr class="border-b border-light-border dark:border-gray-700/30">
+                  <th class="px-5 py-3.5 text-left text-sm font-medium text-light-text-secondary dark:text-gray-400">Дата</th>
+                  <th class="px-5 py-3.5 text-left text-sm font-medium text-light-text-secondary dark:text-gray-400">Тип операции</th>
+                  <th class="px-5 py-3.5 text-left text-sm font-medium text-light-text-secondary dark:text-gray-400">Сумма</th>
                 </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-700/30">
+                <tbody class="divide-y divide-light-border dark:divide-gray-700/30">
                 <tr
                     v-for="transaction in financeStore.transactions"
                     :key="transaction.id"
-                    class="hover:bg-gray-700/10 transition-colors group"
+                    class="hover:bg-light-bg dark:hover:bg-gray-700/10 transition-colors group"
                 >
-                  <td class="px-5 py-4 text-gray-300 text-sm">{{ formatDate(transaction.created_at) }}</td>
+                  <td class="px-5 py-4 text-light-text dark:text-gray-300 text-sm">{{ formatDate(transaction.created_at) }}</td>
                   <td class="px-5 py-4">
                     <div class="flex items-center space-x-2">
                       <component
@@ -96,7 +96,7 @@
               <div
                   v-for="transaction in financeStore.transactions"
                   :key="transaction.id"
-                  class="bg-gray-900/20 p-4 rounded-xl border border-gray-700/30 hover:border-purple-400/30 transition-all group"
+                  class="bg-light-bg dark:bg-gray-900/20 p-4 rounded-xl border border-light-border dark:border-gray-700/30 hover:border-purple-400/30 transition-all group"
               >
                 <div class="flex justify-between items-start mb-2">
                   <div class="flex items-center space-x-3">
@@ -113,7 +113,7 @@
                     {{ transaction.amount }} ₽
                   </span>
                 </div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-light-text-secondary dark:text-gray-400">
                   {{ formatDate(transaction.created_at) }}
                 </div>
               </div>
